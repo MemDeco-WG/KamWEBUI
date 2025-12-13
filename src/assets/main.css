@@ -1,0 +1,461 @@
+/* Kam Wiki — Global Styles & Theme Tokens
+   - Minimal, accessible, responsive CSS for a documentation UI.
+   - Supports a light & dark theme using [data-theme="dark"] on <html>.
+   - Basic layout: header, sidebar, main content, and a lightweight card system.
+*/
+
+:root {
+  /* Appearance / Colors */
+  --bg: #ffffff;
+  --card: #ffffff;
+  --surface: #f8fafc;
+  --muted: #6b7280; /* 500/gray-500 */
+  --text: #0f172a; /* slate-900 */
+  --accent: #0891b2; /* teal-ish */
+  --accent-foreground: #ffffff;
+  --border: #e6eef0; /* light border */
+  --code-bg: #f3f4f6;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.08);
+
+  /* Layout */
+  --sidebar-width: 260px;
+  --content-max-width: 980px;
+  --radius: 10px;
+
+  /* Typography */
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New";
+  --base-font-size: 16px;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --card: #061826;
+  --surface: #061826;
+  --muted: #9aa6b2;
+  --text: #e6eef0;
+  --accent: #13b7c8;
+  --accent-foreground: #00131b;
+  --border: #16313a;
+  --code-bg: #08232b;
+  --shadow-sm: 0 1px 2px rgba(6, 24, 32, 0.5);
+  --shadow-md: 0 6px 20px rgba(6, 24, 32, 0.6);
+}
+
+/* Basic reset and global rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--base-font-size);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Light transition on color changes so theme switches feel smooth */
+* {
+  transition: background-color 160ms ease-out, color 160ms ease-out,
+    border-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+
+/* App header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(0,0,0,0.02) 0%, transparent 40%);
+  backdrop-filter: blur(0.5px);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* Branding / Title */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+.brand .logo {
+  background: var(--accent-foreground);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Header actions (search / theme toggle / misc) */
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Layout container: sidebar + main */
+.container {
+  min-height: calc(100vh - 56px);
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  background: transparent;
+  padding: 1rem;
+  position: relative;
+  border-right: 1px solid var(--border);
+}
+.sidebar .search {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.search input[type="search"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.search input[type="search"]::placeholder {
+  color: var(--muted);
+  opacity: 0.9;
+}
+
+/* Sidebar list */
+.command-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.375rem;
+}
+.command-list li {
+  margin: 0;
+}
+.command-list a {
+  display: block;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid transparent;
+}
+.command-list a:hover {
+  background: linear-gradient(90deg, rgba(0,0,0,0.02), transparent);
+}
+.command-list a.active {
+  background: linear-gradient(90deg, rgba(0,0,0,0.04), transparent);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Main content */
+.main {
+  min-height: 100%;
+  padding: 0.5rem 1rem;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+/* Content card/hero area */
+.page-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Title & meta */
+.page-card h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+}
+.command-meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.85rem;
+}
+
+/* Usage / Code blocks */
+.usage {
+  margin-top: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+.kam-cli {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--code-bg);
+  border-radius: 7px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  white-space: pre;
+}
+.copy-btn {
+  margin-left: auto;
+  border: none;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  padding: 0.35rem 0.55rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.copy-btn:hover,
+.copy-btn:focus {
+  filter: brightness(0.95);
+}
+
+/* Basic typography for markdown-style content */
+.content :where(h1, h2, h3, h4, h5, h6) {
+  margin: 0.9rem 0 0.4rem 0;
+  line-height: 1.2;
+}
+.content p {
+  margin: 0.6rem 0;
+  color: var(--text);
+}
+.content ul,
+.content ol {
+  margin: 0.4rem 0 0.4rem 1.2rem;
+}
+.content li {
+  margin: 0.35rem 0;
+}
+
+/* Blockquote */
+.content blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 0.75rem;
+  color: var(--muted);
+  background: linear-gradient(90deg, rgba(0,0,0,0.01), transparent);
+  border-radius: 6px;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Code and pre blocks */
+.code {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 0.65rem;
+  border: 1px solid var(--border);
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+pre {
+  margin: 0.6rem 0;
+  padding: 0.9rem;
+  background: var(--code-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  overflow: auto;
+}
+
+/* Inline code */
+code {
+  background: var(--code-bg);
+  padding: 0.12rem 0.28rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Table */
+.content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.8rem 0;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--text);
+}
+.content table th,
+.content table td {
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  border-radius: 4px;
+}
+.content table th {
+  background: var(--card);
+  font-weight: 700;
+}
+
+/* Chips / badges */
+.chip {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+}
+
+/* Muted text */
+.muted {
+  color: var(--muted);
+}
+
+/* Small keyboard style */
+.kbd {
+  display: inline-block;
+  padding: 0.12rem 0.35rem;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  background: var(--card);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 700;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border: none;
+}
+.btn:focus {
+  outline: 2px dashed rgba(0,0,0,0.06);
+}
+
+/* Footer */
+.footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Utilities */
+.flex {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.row {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Responsive: collapse sidebar on small displays */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    padding: 0.65rem;
+  }
+  .sidebar {
+    order: 2;
+    width: 100%;
+    border-right: 0;
+    border-top: 1px solid var(--border);
+  }
+  .main {
+    order: 1;
+    padding-top: 0.75rem;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+}
+
+/* Small screens: make pages feel more card-like and stacked */
+@media (max-width: 480px) {
+  .page-card {
+    padding: 0.8rem;
+    border-radius: 8px;
+  }
+}
+
+/* Accessibility helpers for keyboard focus */
+a:focus,
+button:focus,
+input:focus {
+  outline: 3px solid rgba(10, 132, 255, 0.12);
+  outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Motion reduced: disable transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Small helper classes for centering or spacing */
+.center {
+  display: grid;
+  place-items: center;
+}
+.hidden {
+  display: none !important;
+}
