@@ -2,7 +2,22 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 
+/**
+ * Compute a safe `base` for the build output so assets are referenced
+ * correctly when deployed to GitHub Pages (repo sites are served from
+ * https://<user>.github.io/<repo>/). CI/GitHub Actions exposes
+ * GITHUB_REPOSITORY which we can use to infer the repo name automatically.
+ *
+ * You can override this value locally with `VITE_BASE` env var if needed.
+ */
+const repoName = process.env.GITHUB_REPOSITORY?.split("/")[1];
+const autoBase = repoName ? `/${repoName}/` : "/";
+const base = process.env.VITE_BASE || autoBase;
+
 export default defineConfig({
+  // Base (computed above). Ensures built assets and service worker (if used)
+  // are referenced relative to the repository path on GitHub Pages.
+  base,
   plugins: [vue()],
   resolve: {
     alias: {

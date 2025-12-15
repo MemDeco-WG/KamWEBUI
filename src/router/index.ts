@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 
 /**
@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL ?? "/"),
+  history: createWebHashHistory(import.meta.env.BASE_URL ?? "/"),
   routes,
   scrollBehavior() {
     // Always scroll to top on navigation (better UX for docs)
