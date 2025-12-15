@@ -680,10 +680,23 @@ app.use(i18n);
 
 async function registerNuxtUIIfAvailable() {
   try {
+    // Avoid bundling @nuxt/ui during production builds (it pulls in node-only deps
+    // like lightningcss / @tailwindcss/oxide which break Vite production build).
+    // Only attempt dynamic import during development (local dev server).
+    if (import.meta.env.PROD) {
+      if (import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[main] Skipping @nuxt/ui import during production build.",
+        );
+      }
+      return;
+    }
+
     // Try to dynamically import `@nuxt/ui`. Many Nuxt modules expect a Nuxt runtime,
     // but the package may still export usable components or a plugin function that
     // can be used in a plain Vue 3 app.
-    const nuxtUI: any = await import("@nuxt/ui");
+    const nuxtUI: any = await import(/* @vite-ignore */ "@nuxt/ui");
 
     const candidate = nuxtUI.default ?? nuxtUI;
 
@@ -751,7 +764,13 @@ async function bootstrap() {
   // For local development you may want to keep this disabled; we check `import.meta.env.PROD`.
   if ("serviceWorker" in navigator && import.meta.env.PROD) {
     try {
-      const reg = await navigator.serviceWorker.register("/sw.js");
+      // Register the service worker using an absolute URL that respects Vite's
+      // `base` config (available as import.meta.env.BASE_URL at build time).
+      // Create an absolute URL using location.origin so registration works
+      // correctly for repository pages (e.g. GitHub Pages).
+      const base = import.meta.env.BASE_URL || "/";
+      const swUrl = new URL("sw.js", location.origin + base);
+      const reg = await navigator.serviceWorker.register(swUrl.href);
       // eslint-disable-next-line no-console
       console.debug("[main] Service Worker registered at scope:", reg.scope);
     } catch (err) {
