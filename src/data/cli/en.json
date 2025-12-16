@@ -1,7 +1,7 @@
 {
   "about": {
-    "about": "Kam — Kam is a CLI toolkit for scaffolding, building, packaging, and distributing Android modules and templates (ksu/APU/Magisk/AnyTemplate). It supports module initialization, packaging, template management, and repository metadata exports. Use `kam help <COMMAND>` for more details about a specific command.",
-    "long_about": "Kam is a CLI toolkit for scaffolding, building, packaging, and distributing Android modules and templates (ksu/APU/Magisk/AnyTemplate). It supports module initialization, packaging, template management, and repository metadata exports. Use `kam help <COMMAND>` for more details about a specific command."
+    "about": "A CLI toolkit for scaffolding, building, packaging, and distributing Android modules and templates (ksu/APU/Magisk/AnyTemplate). It supports module initialization, packaging, template management, and repository metadata exports. Use `kam help <COMMAND>` for more details about a specific command.",
+    "long_about": "A CLI toolkit for scaffolding, building, packaging, and distributing Android modules and templates (ksu/APU/Magisk/AnyTemplate). It supports module initialization, packaging, template management, and repository metadata exports. Use `kam help <COMMAND>` for more details about a specific command."
   },
   "flags": {
     "help": "Print help (see a summary with '-h')",

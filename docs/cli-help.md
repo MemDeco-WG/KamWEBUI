@@ -8,7 +8,7 @@ Keep this page as a snapshot of the CLI help text — when the CLI changes, re-r
 ## Top-level help
 
 ```
-kam — Kam is a CLI toolkit for scaffolding, building, packaging, and distributing Android modules and templates (ksu/APU/Magisk/AnyTemplate). It supports module initialization, packaging, template management, and repo metadata exports.
+kam — A CLI toolkit for scaffolding, building, packaging, and distributing Android modules and templates (ksu/APU/Magisk/AnyTemplate). It supports module initialization, packaging, template management, and repo metadata exports.
 
 Usage: kam <COMMAND>
 
