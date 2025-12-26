@@ -135,8 +135,8 @@
       }
     },
     "install": {
-      "summary": "Install a module package to a connected device using the configured root manager",
-      "description": "Install a built module (.zip) to a connected device using Magisk/KernelSU/APatchSU. Configure the preferred manager with `kam config set root.manager <Manager>`",
+      "summary": "Act as a compatibility layer for Magisk, KernelSU, and APatchSU to install modules",
+      "description": "Act as a compatibility layer that delegates module installation to the configured root manager (Magisk/KernelSU/APatchSU). Configure the preferred manager with `kam config set root.manager <Manager>`",
       "flags": {
         "path": "Path to module package (.zip). If omitted, Kam will try to find an artifact in the project's dist/ output dir",
         "manager": "Preferred root manager (Magisk, KernelSU, APatchSU)",

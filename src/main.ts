@@ -887,10 +887,10 @@ const messages = {
       install: {
         name: "install",
         summary:
-          "Install a module package to a connected device using the configured root manager",
-        usage: "kam install [OPTIONS] [PATH] [PATH]",
+          "Act as a compatibility layer for Magisk, KernelSU, and APatchSU to install modules",
+        usage: "kam install [OPTIONS] [PATH]",
         description:
-          "Install a built module (.zip) to a connected device using Magisk/KernelSU/APatchSU. Configure the preferred manager with `kam config set root.manager <Manager>`.",
+          "Act as a compatibility layer that delegates module installation to the configured root manager (Magisk/KernelSU/APatchSU). Configure the preferred manager with `kam config set root.manager <Manager>`.",
         examples: [
           "kam build && kam install dist/module.zip",
           "kam install --manager Magisk /path/to/module.zip",
@@ -1538,10 +1538,10 @@ const messages = {
       },
       install: {
         name: "install",
-        summary: "将模块包安装到连接的设备（使用配置的 root 管理器）",
-        usage: "kam install [OPTIONS] [PATH] [PATH]",
+        summary: "充当 Magisk/KernelSU/APatchSU 的兼容层以安装模块",
+        usage: "kam install [OPTIONS] [PATH]",
         description:
-          "将已构建的模块 (.zip) 安装到连接的设备，使用 Magisk/KernelSU/APatchSU。使用 `kam config set root.manager <Manager>` 配置首选管理器。",
+          "作为兼容层，调用配置的 root 管理器（Magisk/KernelSU/APatchSU）以安装模块（.zip）。使用 `kam config set root.manager <Manager>` 配置首选管理器。注意：在 Android 上这可能需要 root 权限（su），Kam 会尝试使用 'su' 提升权限。",
         examples: [
           "kam build && kam install dist/module.zip",
           "kam install --manager Magisk /path/to/module.zip",

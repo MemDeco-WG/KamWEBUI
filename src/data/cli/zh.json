@@ -135,8 +135,8 @@
       }
     },
     "install": {
-      "summary": "使用配置的 root 管理器将模块包安装到已连接设备",
-      "description": "将构建好的模块（.zip）安装到已连接设备（支持 Magisk/KernelSU/APatchSU）。可通过 `kam config set root.manager <Manager>` 配置首选管理器。",
+      "summary": "作为 Magisk/KernelSU/APatchSU 的兼容层以安装模块",
+      "description": "充当兼容层，调用配置的 root 管理器（Magisk/KernelSU/APatchSU）以安装模块（.zip）。可通过 `kam config set root.manager <Manager>` 配置首选管理器。注意：在 Android 上这可能需要 root 权限（su），Kam 会尝试使用 'su' 提升权限。",
       "flags": {
         "path": "模块包路径（.zip）。若省略，Kam 会尝试在项目的 dist/ 输出目录中查找工件",
         "manager": "首选的 root 管理器（Magisk、KernelSU、APatchSU）",
