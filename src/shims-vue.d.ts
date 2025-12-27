@@ -14,25 +14,36 @@
  * Replace with more precise types if you want stricter type safety.
  */
 
-import type { DefineComponent } from "vue";
-
 /* Vue Single File Components (SFC) */
 declare module "*.vue" {
-  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, any>;
+  import type { DefineComponent } from "vue";
+  const component: DefineComponent<
+    Record<string, unknown>,
+    Record<string, unknown>,
+    any
+  >;
   export default component;
 }
 
 /* Markdown files imported as Vue components (if using md imports) */
 declare module "*.md" {
   import type { DefineComponent } from "vue";
-  const component: DefineComponent<Record<string, unknown>, Record<string, unknown>, any>;
+  const component: DefineComponent<
+    Record<string, unknown>,
+    Record<string, unknown>,
+    any
+  >;
   export default component;
 }
 
 /* Common static asset imports */
 declare module "*.svg" {
   import type { DefineComponent } from "vue";
-  const svgComponent: DefineComponent<Record<string, unknown>, Record<string, unknown>, any>;
+  const svgComponent: DefineComponent<
+    Record<string, unknown>,
+    Record<string, unknown>,
+    any
+  >;
   export default svgComponent;
 }
 declare module "*.png";
@@ -64,5 +75,6 @@ declare module "virtual:*" {
   export default anything;
 }
 
-/* Keep this file as a module, avoiding global augmentation pitfalls */
-export {}
+/* Ambient shims: this file provides global (ambient) declaration shims for
+   Vue SFCs and related imports. Intentionally no `export {}` so the declarations
+   are available to the TypeScript language server as ambient/global types. */

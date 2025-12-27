@@ -12,10 +12,11 @@
  * custom component declarations), replace these `any`-based entries with more accurate types.
  */
 
-import type { DefineComponent } from "vue";
+/* Moved DefineComponent import into local declare modules so this file remains an ambient declaration file. */
 
 /* Vue SFCs */
 declare module "*.vue" {
+  import type { DefineComponent } from "vue";
   const component: DefineComponent<
     Record<string, unknown>,
     Record<string, unknown>,
